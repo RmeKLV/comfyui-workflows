@@ -76,3 +76,47 @@ Each clip has its own positive prompt describing what happens in that transition
 - ROCm or CUDA GPU (workflows use ROCmDiffusionLoader — swap for UNETLoader on NVIDIA)
 - 16GB+ VRAM recommended for Stage 2 (WAN 14B model)
 - Tested on AMD RX 7900 XTX
+
+- ---
+
+## Kokoro TTS & FL-ClearVoice Audio Pipeline
+
+A high-fidelity AI voice generation and super-resolution pipeline. It generates realistic, natural-sounding narration for commentary videos, voiceovers, or podcasts, and automatically upscales the audio to studio-standard resolution.
+
+### Nodes required:
+* [ComfyUI-Geeky-Kokoro-TTS](https://github.com/GeekyGhost/ComfyUI-Geeky-Kokoro-TTS) — for voice generation & voice blending
+* [ComfyUI_FL-ClearVoice](https://github.com/filliptm/ComfyUI_FL-ClearVoice) — for audio upscaling & neural mastering
+* [ComfyUI-Documents](https://github.com/Excidos/ComfyUI-Documents) — for automatic script chunking (optional)
+
+### Setup & Requirements (Windows / AMD Optimized):
+
+1. **The `PosixPath` Windows/Portable Bug Fix:**
+   Because Resemble-Enhance config files are built on Linux, you must patch Python's path library to prevent a `NotImplementedError` crash when loading the model on Windows:
+   * Open `ComfyUI_windows_portable\ComfyUI\custom_nodes\comfyui_fl-clearvoice\__init__.py` in Notepad.
+   * Add this exact line to the **very top** (Line 1):
+     ```python
+     import pathlib; pathlib.PosixPath = pathlib.Path
+     ```
+   * Save and close the file.
+
+2. **Resemble-Enhance No-DeepSpeed Windows Workaround:**
+   DeepSpeed is designed for Linux and fails to compile natively on Windows. Because DeepSpeed is only used for training and not for running inference, you can safely force-install the model dependencies without it.
+   * Open a Command Prompt in your `ComfyUI_windows_portable` root directory and run:
+     ```cmd
+     .\python_embeded\python.exe -m pip install resemble-enhance --no-deps
+     .\python_embeded\python.exe -m pip install celluloid
+     ```
+
+### Settings & Punctuation Tips for Realism:
+* **Natural Pacing:** AI voices use punctuation as physical breathing cues. 
+  * Use semicolons `;` or ellipses `...` for medium/long natural pauses.
+  * Use exclamation marks `!` and question marks `?` to dynamically raise voice pitch and inflection.
+  * Spell out abbreviations phonetically (e.g., use `A.I.` instead of `AI`) and write out numerical figures.
+* **Vocal Quality:**
+  * Keep `reverb_room_size` set strictly to `0.00` in the advanced voice node to ensure a dry, close-mic podcast studio feel.
+  * Set your `voice_profile` to `Cinematic` or `None` when running `Resemble_Enhance` (avoid `Singer` to prevent auto-tune speech glitches).
+  * Use the `Resemble_Enhance` model for warm, full vocal re-synthesis, or `MossFormer2_SR_48K` for completely stable, glitch-free 48kHz upscaling.
+
+### Example Script:
+```text
+"Hello! ... I am an A.I. voice model; created directly from this workflow... Would you like me... to narrate your next video? ... Let's make; something amazing; today."
