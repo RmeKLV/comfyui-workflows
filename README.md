@@ -124,7 +124,7 @@ A high-fidelity AI voice generation and super-resolution pipeline. It generates 
 ### Audio Comparison:
 
 **Before (Raw Kokoro AI Output):**
-<audio src="before.flac" controls></audio>
+<audio src="Before.flac" controls></audio>
 
 **After (FL-ClearVoice Upscaled & Mastered):**
-<audio src="after.flac" controls></audio>
+<audio src="After.flac" controls></audio>
