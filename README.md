@@ -120,3 +120,11 @@ A high-fidelity AI voice generation and super-resolution pipeline. It generates 
 ### Example Script:
 ```text
 "Hello! ... I am an A.I. voice model; created directly from this workflow... Would you like me... to narrate your next video? ... Let's make; something amazing; today."
+
+### Audio Comparison:
+
+**Before (Raw Kokoro AI Output):**
+<audio src="before.flac" controls></audio>
+
+**After (FL-ClearVoice Upscaled & Mastered):**
+<audio src="after.flac" controls></audio>
