@@ -117,11 +117,20 @@ A high-fidelity AI voice generation and super-resolution pipeline. It generates 
   * Set your `voice_profile` to `Cinematic` or `None` when running `Resemble_Enhance` (avoid `Singer` to prevent auto-tune speech glitches).
   * Use the `Resemble_Enhance` model for warm, full vocal re-synthesis, or `MossFormer2_SR_48K` for completely stable, glitch-free 48kHz upscaling.
 
+Example:
+"Hello! ... I am an A.I. voice model; created directly from this workflow... Would you like me... to narrate your next video? ... Let's make; something amazing; today."
+
 ### Example Script:
-```text
+
 "Hello! ... I am an A.I. voice model; created directly from this workflow... Would you like me... to narrate your next video? ... Let's make; something amazing; today."
 
 ### Audio Comparison:
+
+**Before (Raw Kokoro AI Output):**
+<audio src="Before.mp3" controls></audio>
+
+**After (FL-ClearVoice Upscaled & Mastered):**
+<audio src="After.mp3" controls></audio>
 
 **Before (Raw Kokoro AI Output):**
 [Before.mp3](https://github.com/user-attachments/files/28664086/Before.mp3)
