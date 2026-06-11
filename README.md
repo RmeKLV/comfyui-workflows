@@ -131,3 +131,66 @@ Example:
 
 **After (FL-ClearVoice Upscaled & Mastered):**
 [After.mp3](https://github.com/user-attachments/files/28664088/After.mp3)
+
+---
+
+## Qwen3-TTS Voice Cloning & FL-ClearVoice Advanced Audio Pipeline
+
+A highly customized, local voice generation pipeline built to clone a speaker's unique physical vocal identity and master it to broadcast-ready studio standards. 
+
+This workflow features an advanced **Serial Processing Chain** that bridges the gap between raw local TTS generations and professional voiceovers suitable for YouTube commentary, podcasts, or video essays.
+
+### Nodes required:
+* [ComfyUI-QWEN3_TTS](https://github.com/crt-nodes/ComfyUI-QWEN3_TTS) — for 1.7B-Base voice cloning & text-to-speech
+* [ComfyUI_FL-ClearVoice](https://github.com/filliptm/ComfyUI_FL-ClearVoice) — for audio upscaling & neural mastering
+* [ComfyUI-Geeky-Kokoro-TTS](https://github.com/GeekyGhost/ComfyUI-Geeky-Kokoro-TTS) — for lightweight preset voice generation/blending (optional alternative)
+
+---
+
+### Setup & Requirements (Windows / AMD Optimized):
+
+Because deep-learning audio libraries often have complex dependencies, follow these steps to prevent crashes on Windows portable builds:
+
+1. **The `PosixPath` Windows/Portable Bug Fix:**
+   Because Resemble-Enhance config files are built on Linux, you must patch Python's path library to prevent a `NotImplementedError` crash when loading the model on Windows:
+   * Open `ComfyUI_windows_portable\ComfyUI\custom_nodes\comfyui_fl-clearvoice\__init__.py` in Notepad.
+   * Add this exact line to the **very top** (Line 1):
+     ```python
+     import pathlib; pathlib.PosixPath = pathlib.Path
+     ```
+   * Save and close the file.
+
+2. **Resemble-Enhance No-DeepSpeed Windows Workaround:**
+   DeepSpeed is designed for Linux and fails to compile natively on Windows. Because DeepSpeed is only used for training and not for running inference, you can safely force-install the model dependencies without it.
+   * Open a Command Prompt in your `ComfyUI_windows_portable` root directory and run:
+     ```cmd
+     .\python_embeded\python.exe -m pip install resemble-enhance --no-deps
+     .\python_embeded\python.exe -m pip install celluloid
+     ```
+
+3. **NumPy 2.x Dependency Conflict Fix:**
+   Installing some TTS dependencies (like `LangSegment`) may silently force-upgrade your environment's NumPy version to `2.x`. Because other ComfyUI libraries are pre-compiled for NumPy `1.x`, this mismatch will trigger a fatal `access violation` crash inside `pyarrow` or `torchcodec` on launch.
+   * If ComfyUI crashes immediately on startup after installing, run this command to force your environment back to the stable standard:
+     ```cmd
+     .\python_embeded\python.exe -m pip install numpy==1.26.4 --force-reinstall
+     ```
+
+---
+
+### The Advanced Serial Audio Chain
+
+To achieve natural, crisp, "ElevenLabs" broadcast quality, this workflow chains the generation and enhancement nodes **in series** (rather than running them in isolation):
+
+`Qwen3-TTS (1.7B-Base)` ➔ `MossFormer2_SR_48K` ➔ `Resemble_Enhance` ➔ `SaveAudio`
+
+* **Why it works:** Feeding a raw, lower-sample-rate AI voice directly into a neural vocoder like *Resemble_Enhance* can cause the AI to "guess" too much, leading to robotic artifacts or pronunciation drifts. 
+* By running **`MossFormer2_SR_48K` first**, the voice is cleanly upscaled to 48kHz, naturally reconstructing the high-frequency spectrum. Passing this clean, high-resolution upscaled audio into **`Resemble_Enhance`** allows the neural vocoder to focus entirely on vocal smoothing, warm compression, and professional studio mastering.
+
+---
+
+### Cloning & Cross-Lingual Tips
+
+* **Vocal Reference Sweet Spot:** For zero-shot cloning, use a clean **10 to 15-second** reference clip. Record in a quiet room with no background noise or echo. 
+* **The `ref_text` Rule:** The top text box inside the cloning node is the reference transcript. It **must** match the exact spoken words inside your reference audio file word-for-word, or the vocal alignment will fail.
+* **Cross-Lingual Cloning:** Qwen3-TTS is highly multilingual. If you are not confident in your English pronunciation, **you can record your 10-second reference clip in your native language (e.g., Latvian)**. Put the Latvian transcript in the `ref_text` box, put your English script in the bottom `text` box, and keep the target language set to `English`. The AI will extract your unique vocal characteristics and apply them to perfectly pronounced, fluent English.
+* **Slowing Down Fast Speech:** Cross-lingual outputs can sometimes sound rushed. Use punctuation like commas `,` and ellipses `...` to force natural "breathing" pauses. Lower the node's `temperature` to **`0.70` or `0.75`** to stabilize the reading speed.
