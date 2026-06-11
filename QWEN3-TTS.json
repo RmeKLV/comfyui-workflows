@@ -1,0 +1,653 @@
+{
+  "id": "feb964b1-8f9d-489a-b403-93dcc43c3132",
+  "revision": 0,
+  "last_node_id": 40,
+  "last_link_id": 47,
+  "nodes": [
+    {
+      "id": 8,
+      "type": "Qwen3TTSModelLoader",
+      "pos": [
+        365.0326064603105,
+        1534.3822006234439
+      ],
+      "size": [
+        431.921924949575,
+        154
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "QWEN_TTS_MODEL",
+          "type": "QWEN_TTS_MODEL",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3_tts",
+        "ver": "1.0.9",
+        "Node name for S&R": "Qwen3TTSModelLoader"
+      },
+      "widgets_values": [
+        "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+        "cuda:0",
+        "bfloat16",
+        true,
+        false
+      ]
+    },
+    {
+      "id": 11,
+      "type": "LoadAudio",
+      "pos": [
+        513.0498810219868,
+        1740.3599865213432
+      ],
+      "size": [
+        282.798828125,
+        136
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1",
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        "English_final.wav",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 29,
+      "type": "FL_ClearVoice_Process",
+      "pos": [
+        1430.35741253596,
+        1808.4651229169694
+      ],
+      "size": [
+        215.38505609351606,
+        46
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "CLEARVOICE_MODEL",
+          "link": 27
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 34
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            28
+          ]
+        },
+        {
+          "name": "message",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_fl-clearvoice",
+        "ver": "1.1.1",
+        "Node name for S&R": "FL_ClearVoice_Process"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 23,
+      "type": "FL_ClearVoice_Process",
+      "pos": [
+        1430.0172720212026,
+        1703.330833770958
+      ],
+      "size": [
+        215.38505609351606,
+        46
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "CLEARVOICE_MODEL",
+          "link": 20
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 24
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            21
+          ]
+        },
+        {
+          "name": "message",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_fl-clearvoice",
+        "ver": "1.1.1",
+        "Node name for S&R": "FL_ClearVoice_Process"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 22,
+      "type": "FL_ClearVoice_ModelLoader",
+      "pos": [
+        507.1903409695333,
+        1930.6505228523506
+      ],
+      "size": [
+        287.3140625,
+        82
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "CLEARVOICE_MODEL",
+          "links": [
+            20,
+            45
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_fl-clearvoice",
+        "ver": "1.1.1",
+        "Node name for S&R": "FL_ClearVoice_ModelLoader"
+      },
+      "widgets_values": [
+        "MossFormer2_SR_48K",
+        false
+      ]
+    },
+    {
+      "id": 28,
+      "type": "FL_ClearVoice_ModelLoader",
+      "pos": [
+        507.5304814842867,
+        2073.3756927314316
+      ],
+      "size": [
+        287.3140625,
+        82
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "CLEARVOICE_MODEL",
+          "links": [
+            27,
+            46
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_fl-clearvoice",
+        "ver": "1.1.1",
+        "Node name for S&R": "FL_ClearVoice_ModelLoader"
+      },
+      "widgets_values": [
+        "Resemble_Enhance",
+        false
+      ]
+    },
+    {
+      "id": 38,
+      "type": "FL_ClearVoice_Process",
+      "pos": [
+        1431.3865047977981,
+        1911.5662363692245
+      ],
+      "size": [
+        215.38505609351606,
+        46
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "CLEARVOICE_MODEL",
+          "link": 45
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 43
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            44
+          ]
+        },
+        {
+          "name": "message",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_fl-clearvoice",
+        "ver": "1.1.1",
+        "Node name for S&R": "FL_ClearVoice_Process"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 9,
+      "type": "SaveAudio",
+      "pos": [
+        1697.0588117816276,
+        1536.5836707813694
+      ],
+      "size": [
+        210,
+        112
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 11
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1",
+        "Node name for S&R": "SaveAudio"
+      },
+      "widgets_values": [
+        "audio/ComfyUI"
+      ]
+    },
+    {
+      "id": 24,
+      "type": "SaveAudio",
+      "pos": [
+        1698.499116939969,
+        1701.5271114129423
+      ],
+      "size": [
+        210,
+        112
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 21
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1",
+        "Node name for S&R": "SaveAudio"
+      },
+      "widgets_values": [
+        "audio/ComfyUI"
+      ]
+    },
+    {
+      "id": 30,
+      "type": "SaveAudio",
+      "pos": [
+        1700.092286812491,
+        1869.3128684473977
+      ],
+      "size": [
+        210,
+        112
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 28
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1",
+        "Node name for S&R": "SaveAudio"
+      },
+      "widgets_values": [
+        "audio/ComfyUI"
+      ]
+    },
+    {
+      "id": 39,
+      "type": "FL_ClearVoice_Process",
+      "pos": [
+        1701.539634332776,
+        2039.2499279258836
+      ],
+      "size": [
+        215.38505609351606,
+        46
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "CLEARVOICE_MODEL",
+          "link": 46
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 44
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            47
+          ]
+        },
+        {
+          "name": "message",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_fl-clearvoice",
+        "ver": "1.1.1",
+        "Node name for S&R": "FL_ClearVoice_Process"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 40,
+      "type": "SaveAudio",
+      "pos": [
+        1941.870665152852,
+        2039.1246249901014
+      ],
+      "size": [
+        210,
+        112
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 47
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1",
+        "Node name for S&R": "SaveAudio"
+      },
+      "widgets_values": [
+        "audio/ComfyUI"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "Qwen3TTSVoiceClone",
+      "pos": [
+        810.5411930415617,
+        1534.626202884987
+      ],
+      "size": [
+        576.4476898375908,
+        714.9410930775343
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "QWEN_TTS_MODEL",
+          "link": 9
+        },
+        {
+          "name": "ref_audio",
+          "type": "AUDIO",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            11,
+            24,
+            34,
+            43
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3_tts",
+        "ver": "1.0.9",
+        "Node name for S&R": "Qwen3TTSVoiceClone"
+      },
+      "widgets_values": [
+        "Did you know that there is a version of you that already started? They uploaded their first video a few months ago. And it was a disaster. It was the worst one yet. The audio cut out more than twice, they talked too fast, and the lighting made them look bad. But then, they uploaded the next one. And another one. And another one...",
+        "Hello! I am testing this new digital voice. Every small detail counts when we speak. I want my voice to sound warm, clear, and completely natural. Let's see how well this works. Did you know... that there is a version of you... that already started? They uploaded their first video, just a few months ago. And, honestly... it was a complete disaster. But then... they kept going. One video, at a time. And that... is how you truly build something great.",
+        "English",
+        7,
+        "fixed",
+        false,
+        2048,
+        0.85,
+        0.85,
+        1.1
+      ]
+    }
+  ],
+  "links": [
+    [
+      9,
+      8,
+      0,
+      10,
+      0,
+      "QWEN_TTS_MODEL"
+    ],
+    [
+      10,
+      11,
+      0,
+      10,
+      1,
+      "AUDIO"
+    ],
+    [
+      11,
+      10,
+      0,
+      9,
+      0,
+      "AUDIO"
+    ],
+    [
+      20,
+      22,
+      0,
+      23,
+      0,
+      "CLEARVOICE_MODEL"
+    ],
+    [
+      21,
+      23,
+      0,
+      24,
+      0,
+      "AUDIO"
+    ],
+    [
+      24,
+      10,
+      0,
+      23,
+      1,
+      "AUDIO"
+    ],
+    [
+      27,
+      28,
+      0,
+      29,
+      0,
+      "CLEARVOICE_MODEL"
+    ],
+    [
+      28,
+      29,
+      0,
+      30,
+      0,
+      "AUDIO"
+    ],
+    [
+      34,
+      10,
+      0,
+      29,
+      1,
+      "AUDIO"
+    ],
+    [
+      43,
+      10,
+      0,
+      38,
+      1,
+      "AUDIO"
+    ],
+    [
+      44,
+      38,
+      0,
+      39,
+      1,
+      "AUDIO"
+    ],
+    [
+      45,
+      22,
+      0,
+      38,
+      0,
+      "CLEARVOICE_MODEL"
+    ],
+    [
+      46,
+      28,
+      0,
+      39,
+      0,
+      "CLEARVOICE_MODEL"
+    ],
+    [
+      47,
+      39,
+      0,
+      40,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.965659736939028,
+      "offset": [
+        -221.65832072444718,
+        -1352.5630188268874
+      ]
+    },
+    "frontendVersion": "1.44.19"
+  },
+  "version": 0.4
+}
