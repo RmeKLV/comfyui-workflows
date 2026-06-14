@@ -1,21 +1,105 @@
 {
   "id": "feb964b1-8f9d-489a-b403-93dcc43c3132",
   "revision": 0,
-  "last_node_id": 100,
-  "last_link_id": 122,
+  "last_node_id": 105,
+  "last_link_id": 131,
   "nodes": [
     {
-      "id": 52,
-      "type": "Basic data handling: StringSplitlinesList",
+      "id": 24,
+      "type": "SaveAudio",
       "pos": [
-        -1862.7202947805258,
-        1644.409688960055
+        -1596.2002371179376,
+        2149.2021421364475
       ],
       "size": [
-        270,
-        82
+        210,
+        112
       ],
       "flags": {},
+      "order": 12,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 79
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1",
+        "Node name for S&R": "SaveAudio"
+      },
+      "widgets_values": [
+        "audio/ComfyUI"
+      ]
+    },
+    {
+      "id": 98,
+      "type": "RegexReplace",
+      "pos": [
+        -2058.6686751886036,
+        1644.778796357544
+      ],
+      "size": [
+        400,
+        292
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "widget": {
+            "name": "string"
+          },
+          "link": 118
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            126
+          ]
+        }
+      ],
+      "title": "Replace Text (Regex) 1",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1",
+        "Node name for S&R": "RegexReplace"
+      },
+      "widgets_values": [
+        "",
+        "\\n\\s*\\n",
+        "\\n",
+        true,
+        true,
+        false,
+        0
+      ]
+    },
+    {
+      "id": 104,
+      "type": "RegexReplace",
+      "pos": [
+        -2060.483913597303,
+        1681.7835125639588
+      ],
+      "size": [
+        400,
+        292
+      ],
+      "flags": {
+        "collapsed": true
+      },
       "order": 5,
       "mode": 0,
       "inputs": [
@@ -25,7 +109,58 @@
           "widget": {
             "name": "string"
           },
-          "link": 119
+          "link": 126
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            127
+          ]
+        }
+      ],
+      "title": "Replace Text (Regex) 2",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1",
+        "Node name for S&R": "RegexReplace"
+      },
+      "widgets_values": [
+        "",
+        "[ \\t]+",
+        " ",
+        true,
+        true,
+        false,
+        0
+      ]
+    },
+    {
+      "id": 52,
+      "type": "Basic data handling: StringSplitlinesList",
+      "pos": [
+        -2059.147236531805,
+        1720.0629014899764
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "widget": {
+            "name": "string"
+          },
+          "link": 127
         }
       ],
       "outputs": [
@@ -49,49 +184,126 @@
       ]
     },
     {
-      "id": 24,
-      "type": "SaveAudio",
+      "id": 93,
+      "type": "Basic data handling: ListLength",
       "pos": [
-        -1141.6672739918622,
-        2086.8320174969704
+        -1859.26887222972,
+        1688.8235035798539
+      ],
+      "size": [
+        140,
+        26
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "list",
+          "type": "LIST",
+          "link": 113
+        }
+      ],
+      "outputs": [
+        {
+          "name": "length",
+          "type": "INT",
+          "links": [
+            121
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "basic_data_handling",
+        "ver": "1.5.1",
+        "Node name for S&R": "Basic data handling: ListLength"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 95,
+      "type": "Note",
+      "pos": [
+        -2060.544381359648,
+        2048.5060928755947
+      ],
+      "size": [
+        271.0885467359292,
+        98.33806175531117
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "Bypass Factory Node!\nRUN.\nUn-Bypass Factory Node!\nReset your Starting Point value to 0.\nSet your Batch Count.\nRUN."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 94,
+      "type": "PreviewAny",
+      "pos": [
+        -1604.8212418847668,
+        1564.3854799089763
       ],
       "size": [
         210,
         112
       ],
-      "flags": {},
-      "order": 11,
+      "flags": {
+        "collapsed": false
+      },
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
-          "name": "audio",
-          "type": "AUDIO",
-          "link": 79
+          "name": "source",
+          "type": "*",
+          "link": 121
         }
       ],
-      "outputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "Batch Count",
       "properties": {
         "cnr_id": "comfy-core",
         "ver": "0.24.1",
-        "Node name for S&R": "SaveAudio"
+        "Node name for S&R": "PreviewAny"
       },
       "widgets_values": [
-        "audio/ComfyUI"
-      ]
+        null,
+        null,
+        null
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
     },
     {
       "id": 79,
       "type": "Any List Iterator",
       "pos": [
-        -1586.6853919390376,
-        1717.353401457722
+        -1785.3765056310585,
+        1725.6982613355892
       ],
       "size": [
         270,
         58
       ],
-      "flags": {},
-      "order": 6,
+      "flags": {
+        "collapsed": true
+      },
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -127,73 +339,11 @@
       ]
     },
     {
-      "id": 95,
-      "type": "Note",
-      "pos": [
-        -1587.4550175143913,
-        1812.2823671021135
-      ],
-      "size": [
-        271.0885467359292,
-        98.33806175531117
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "properties": {},
-      "widgets_values": [
-        "Bypass Factory Node!\nRUN.\nUn-Bypass Factory Node!\nReset your Starting Point value to 0.\nSet your Batch Count.\nRUN."
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
-      "id": 93,
-      "type": "Basic data handling: ListLength",
-      "pos": [
-        -1584.3015193196418,
-        1680.4998157154307
-      ],
-      "size": [
-        140,
-        26
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "list",
-          "type": "LIST",
-          "link": 113
-        }
-      ],
-      "outputs": [
-        {
-          "name": "length",
-          "type": "INT",
-          "links": [
-            121
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "basic_data_handling",
-        "ver": "1.5.1",
-        "Node name for S&R": "Basic data handling: ListLength"
-      },
-      "widgets_values": []
-    },
-    {
       "id": 87,
       "type": "Axis To Any",
       "pos": [
-        -1308.5866497445963,
-        1718.9125691351849
+        -1782.420631855871,
+        1761.6510899558314
       ],
       "size": [
         140,
@@ -202,7 +352,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 8,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -228,95 +378,18 @@
       "widgets_values": []
     },
     {
-      "id": 46,
-      "type": "Text Multiline",
-      "pos": [
-        -2717.5954209755746,
-        1690.314024897104
-      ],
-      "size": [
-        438.1038400529669,
-        505.4969615126747
-      ],
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            118
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "was-ns",
-        "ver": "3.0.1",
-        "Node name for S&R": "Text Multiline"
-      },
-      "widgets_values": [
-        "we spent our entire adolescence being groomed for an assembly line that doesn't exist anymore.\n\nit was all so meticulously planned by adults who didn't even know how to survive themselves. the two thousands were just one long con designed to trap us in a system that broke before we could even graduate. look at the two-thousand-and-eight hangover. it left behind a generation of debt and broken promises that still hasn't healed. \n\nschools turned into these weird resume factories where you pay tuition just to sit in a chair and wait for permission to work // \n\ngo to a good school. move to the capital city. eat instant noodles in a room the size of a closet for three years because \"you're building character.\" we treated major cities like corporate churches where you had to pay your tithes in astronomical rent just to get a seat at the table. \n\nthey promised that if you followed every rule and took all the right internships eventually—somehow—the line goes up. but looking back now it was never about climbing anywhere. \n\nit was just about keeping us busy while they stripped out the middle class one job posting at a time. \n\npeople are just bailing out of major cities now // it isn't some travel aesthetic on a screen anymore. \n\nit is pure survival logic that has no room to hide in plain sight. you pull down twenty-six thousand pounds or dollars and you're actively choosing between buying food and keeping the heat on — rent tracking doesn't care about your degree anyway. \n\nwe used to think you had to suffer in a capital city like London or Paris to make something of yourself but now everyone sees through that lie and they pack their bags instead. staying put is literally paying a premium to starve while watching your friends leave for places where money actually means anything. \n\nwhen rent eats up half your pay check before tax even comes out you aren't \"living the dream\" — you're just subsidizing property owners who don't care if you eat or not. \n\nand nobody wants to leave the jobs they hate anyway since there isn't any other option open right now. I keep seeing posts from people with chronic conditions completely frozen in place just trying to navigate a system that punishes unemployment at every turn. it is brutal // \n\nyou have this brilliant idea for a business or something that finally gets you out of the daily grind? great but if stepping off means jumping on six month public waiting lists while your body actively declines — or paying thousands out of pocket for private specialists just to bypass them — then nobody leaves. \n\nthe system keeps people stuck in cubicles since they are terrified of what happens when a single illness forces you into voluntary contribution schemes that drain whatever savings you have left. it basically kills any chance of real innovation now // our brightest minds have to stay employed just to dodge a paperwork labyrinth that grinds you down before a doctor even sees you. \n\nwe are literally pricing entrepreneurship out of reach for the exact people who need relief from the grind most. you can't risk your health on a hunch when one bad month means choosing between rent and treatment... \n\nthen you try applying for those junior roles and realize half of them simply do not exist anymore // \n\nnew grad recruitment in tech tanked by like sixty percent since twenty-twenty-two or so just watching it happen on my feed was depressing. companies are using software to handle the grunt work now instead of hiring fresh graduates like we used to five years ago. \n\nyou cannot get promoted if you aren't hired and they won't hire you at all anymore since an algorithm can write emails better than you anyway... \n\nthe bottom rungs have been sawed off so there is nowhere left to stand unless your parents pay for everything. \n\nwe were raised on this obsession with climbing higher // chasing corner offices and fancy titles like they actually mean anything anymore. but in twenty-twenty-six that kind of ambition just makes you a massive liability if things go sideways fast. \n\na big title doesn't matter when the company decides to automate your entire department overnight. they want you aiming for middle management while quietly mapping out which layers can be cut without stopping the profit machine. \n\nfreedom isn't some spiritual journey anyway // it is just basic math on a napkin. if your monthly costs stay painfully low nobody can force you into a room where they treat you like spare parts. staying cheap means you never have to sit through another meeting about quarterly targets when actual rent could easily cover half a year in cash savings instead. \n\nit is messy and quiet, and nobody hands out plaques for knowing which local shops still take physical money when the networks go down // \n\nkeep some dirt under your nails — learn how to fix a leaking pipe, grow potatoes on a fire escape, or actually know the people who live downstairs instead of hiding behind screens. build a few backup plans so if one door slams shut you aren't left picking at deadbolts in a dark hallway... \n\nI am just done pretending the track was ever going to reach a destination anyway // turning off the monitor now before it gets too late out there. "
-      ]
-    },
-    {
-      "id": 94,
-      "type": "PreviewAny",
-      "pos": [
-        -1396.3512362404779,
-        1568.657406254143
-      ],
-      "size": [
-        210,
-        112
-      ],
-      "flags": {
-        "collapsed": false
-      },
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "source",
-          "type": "*",
-          "link": 121
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "title": "Batch Count",
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.24.1",
-        "Node name for S&R": "PreviewAny"
-      },
-      "widgets_values": [
-        null,
-        null,
-        true
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
       "id": 66,
       "type": "LoadAudio",
       "pos": [
-        -1863.5127740620792,
-        1883.4994052944016
+        -2059.296025042816,
+        1875.7964577148318
       ],
       "size": [
         268.70147118593945,
         136
       ],
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -342,67 +415,19 @@
       "bgcolor": "#353"
     },
     {
-      "id": 98,
-      "type": "RegexReplace",
-      "pos": [
-        -2270.828257857693,
-        1667.2823690092985
-      ],
-      "size": [
-        400,
-        292
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "string",
-          "type": "STRING",
-          "widget": {
-            "name": "string"
-          },
-          "link": 118
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            119
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.24.1",
-        "Node name for S&R": "RegexReplace"
-      },
-      "widgets_values": [
-        "",
-        "\\n\\n+",
-        "\\n",
-        true,
-        true,
-        false,
-        0
-      ]
-    },
-    {
       "id": 65,
       "type": "3af1ef17-0e00-45bc-9f3b-2ae281432e71",
       "pos": [
-        -1175.9740787151004,
-        1649.4403635496137
+        -1630.5070418411758,
+        1711.8104881890908
       ],
       "size": [
         269.29548727752876,
         401.21964926965893
       ],
       "flags": {},
-      "order": 10,
-      "mode": 0,
+      "order": 11,
+      "mode": 4,
       "inputs": [
         {
           "label": "String_Text",
@@ -453,11 +478,44 @@
       "bgcolor": "#533"
     },
     {
+      "id": 46,
+      "type": "Text Multiline",
+      "pos": [
+        -2503.7637008539928,
+        1615.119498857772
+      ],
+      "size": [
+        438.1038400529669,
+        505.4969615126747
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            118
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "was-ns",
+        "ver": "3.0.1",
+        "Node name for S&R": "Text Multiline"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
       "id": 86,
       "type": "PrimitiveInt",
       "pos": [
-        -1862.379607773666,
-        1764.1932796234464
+        -2060.0885956492943,
+        1756.4903320438766
       ],
       "size": [
         270,
@@ -556,20 +614,28 @@
       "STRING"
     ],
     [
-      119,
-      98,
-      0,
-      52,
-      0,
-      "STRING"
-    ],
-    [
       121,
       93,
       0,
       94,
       0,
       "INT"
+    ],
+    [
+      126,
+      98,
+      0,
+      104,
+      0,
+      "STRING"
+    ],
+    [
+      127,
+      104,
+      0,
+      52,
+      0,
+      "STRING"
     ]
   ],
   "groups": [],
@@ -580,8 +646,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 100,
-          "lastLinkId": 122,
+          "lastNodeId": 105,
+          "lastLinkId": 131,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -611,7 +677,7 @@
             "name": "text",
             "type": "STRING",
             "linkIds": [
-              81
+              131
             ],
             "label": "String_Text",
             "pos": [
@@ -701,80 +767,6 @@
             ]
           },
           {
-            "id": 10,
-            "type": "Qwen3TTSVoiceClone",
-            "pos": [
-              -259.4238731738322,
-              2238.1673955075034
-            ],
-            "size": [
-              576.4476898375908,
-              714.9410930775343
-            ],
-            "flags": {},
-            "order": 2,
-            "mode": 0,
-            "inputs": [
-              {
-                "localized_name": "model",
-                "name": "model",
-                "type": "QWEN_TTS_MODEL",
-                "link": 9
-              },
-              {
-                "localized_name": "ref_audio",
-                "name": "ref_audio",
-                "type": "AUDIO",
-                "link": 83
-              },
-              {
-                "localized_name": "text",
-                "name": "text",
-                "type": "STRING",
-                "widget": {
-                  "name": "text"
-                },
-                "link": 81
-              },
-              {
-                "localized_name": "ref_text",
-                "name": "ref_text",
-                "type": "STRING",
-                "widget": {
-                  "name": "ref_text"
-                },
-                "link": 85
-              }
-            ],
-            "outputs": [
-              {
-                "localized_name": "AUDIO",
-                "name": "AUDIO",
-                "type": "AUDIO",
-                "links": [
-                  24
-                ]
-              }
-            ],
-            "properties": {
-              "cnr_id": "qwen3_tts",
-              "ver": "1.0.9",
-              "Node name for S&R": "Qwen3TTSVoiceClone"
-            },
-            "widgets_values": [
-              "then you try applying for those junior roles and realize half of them simply do not exist anymore // new grad recruitment in tech tanked by like sixty percent since twenty-twenty-two or so just watching it happen on my feed was depressing. companies are using software to handle the grunt work now instead of hiring fresh graduates like we used to five years ago. you cannot get promoted if you aren't hired and they won't hire you at all anymore since an algorithm can write emails better than you anyway...",
-              "Hello! I am testing this new digital voice. Every small detail counts when we speak. I want my voice to sound warm, clear, and completely natural. Let's see how well this works. Did you know... that there is a version of you... that already started? They uploaded their first video, just a few months ago. And, honestly... it was a complete disaster. But then... they kept going. One video, at a time. And that... is how you truly build something great.",
-              "English",
-              7,
-              "fixed",
-              false,
-              2048,
-              0.85,
-              0.85,
-              1.05
-            ]
-          },
-          {
             "id": 23,
             "type": "FL_ClearVoice_Process",
             "pos": [
@@ -861,6 +853,80 @@
               "MossFormer2_SR_48K",
               false
             ]
+          },
+          {
+            "id": 10,
+            "type": "Qwen3TTSVoiceClone",
+            "pos": [
+              -259.4238731738322,
+              2238.1673955075034
+            ],
+            "size": [
+              576.4476898375908,
+              714.9410930775343
+            ],
+            "flags": {},
+            "order": 2,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "model",
+                "name": "model",
+                "type": "QWEN_TTS_MODEL",
+                "link": 9
+              },
+              {
+                "localized_name": "ref_audio",
+                "name": "ref_audio",
+                "type": "AUDIO",
+                "link": 83
+              },
+              {
+                "localized_name": "text",
+                "name": "text",
+                "type": "STRING",
+                "widget": {
+                  "name": "text"
+                },
+                "link": 131
+              },
+              {
+                "localized_name": "ref_text",
+                "name": "ref_text",
+                "type": "STRING",
+                "widget": {
+                  "name": "ref_text"
+                },
+                "link": 85
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "AUDIO",
+                "name": "AUDIO",
+                "type": "AUDIO",
+                "links": [
+                  24
+                ]
+              }
+            ],
+            "properties": {
+              "cnr_id": "qwen3_tts",
+              "ver": "1.0.9",
+              "Node name for S&R": "Qwen3TTSVoiceClone"
+            },
+            "widgets_values": [
+              "",
+              "Hello! I am testing this new digital voice. Every small detail counts when we speak. I want my voice to sound warm, clear, and completely natural. Let's see how well this works. Did you know... that there is a version of you... that already started? They uploaded their first video, just a few months ago. And, honestly... it was a complete disaster. But then... they kept going. One video, at a time. And that... is how you truly build something great.",
+              "English",
+              7,
+              "fixed",
+              false,
+              2048,
+              0.85,
+              0.85,
+              1.05
+            ]
           }
         ],
         "groups": [],
@@ -898,14 +964,6 @@
             "type": "AUDIO"
           },
           {
-            "id": 81,
-            "origin_id": -10,
-            "origin_slot": 0,
-            "target_id": 10,
-            "target_slot": 2,
-            "type": "STRING"
-          },
-          {
             "id": 83,
             "origin_id": -10,
             "origin_slot": 1,
@@ -920,6 +978,14 @@
             "target_id": 10,
             "target_slot": 3,
             "type": "STRING"
+          },
+          {
+            "id": 131,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 10,
+            "target_slot": 2,
+            "type": "STRING"
           }
         ],
         "extra": {}
@@ -929,10 +995,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.967299309743685,
+      "scale": 1.0640292407180567,
       "offset": [
-        2817.90765534296,
-        -1376.2644479952778
+        2778.0346688266654,
+        -1413.3742022444364
       ]
     },
     "frontendVersion": "1.44.19"
