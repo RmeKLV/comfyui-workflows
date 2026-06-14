@@ -134,16 +134,20 @@ Example:
 
 ---
 
-## Qwen3-TTS Voice Cloning & FL-ClearVoice Advanced Audio Pipeline
+## Qwen3-TTS Voice Clone & Script Reader (Automated Loop Pipeline)
 
-A highly customized, local voice generation pipeline built to clone a speaker's unique physical vocal identity and master it to broadcast-ready studio standards. 
+`QWEN3-TTS Voice Clone & Script Reader.json`
 
-This workflow features an advanced **Serial Processing Chain** that bridges the gap between raw local TTS generations and professional voiceovers suitable for YouTube commentary, podcasts, or video essays.
+An automated local voiceover pipeline built to clone a speaker's unique physical vocal identity and generate long, continuous scripts. It features a modular, clean canvas layout using a packaged **Factory Subgraph** and an automatic **Script Reader** looping system.
+
+Instead of running parallel test configurations or manually pasting individual text chunks, this workflow dynamically splits entire multiline scripts, calculates your exact paragraph count, and automatically generates sequential audio files using ComfyUI's native batch queue.
 
 ### Nodes required:
 * [ComfyUI-QWEN3_TTS](https://github.com/crt-nodes/ComfyUI-QWEN3_TTS) — for 1.7B-Base voice cloning & text-to-speech
 * [ComfyUI_FL-ClearVoice](https://github.com/filliptm/ComfyUI_FL-ClearVoice) — for audio upscaling & neural mastering
-* [ComfyUI-Geeky-Kokoro-TTS](https://github.com/GeekyGhost/ComfyUI-Geeky-Kokoro-TTS) — for lightweight preset voice generation/blending (optional alternative)
+* [ComfyUI-basic-data-handling](https://github.com/TheStableLlama/ComfyUI-basic-data-handling) — for StringSplitlinesList & ListLength nodes
+* [qq-nodes-comfyui](https://github.com/nkreipke/qq-nodes-comfyui) — for Any List Iterator & Axis To Any nodes
+* [was-node-suite-comfyui](https://github.com/WASasquatch/was-node-suite-comfyui) — for Text Multiline node
 
 ---
 
@@ -177,14 +181,41 @@ Because deep-learning audio libraries often have complex dependencies, follow th
 
 ---
 
-### The Advanced Serial Audio Chain
+### Workflow Breakdown & Looping Architecture
 
-To achieve natural, crisp, "ElevenLabs" broadcast quality, this workflow chains the generation and enhancement nodes **in series** (rather than running them in isolation):
+The script reading and vocal enhancement pipeline has been optimized into a clean, automated loop:
+[Text Multiline] ➔ [StringSplitlinesList] ➔ [Any List Iterator] ➔ [Factory Subgraph] ➔ [SaveAudio]
+▲
+[Starting Point]
+code
+Code
+#### 1. The Automated Script Reader
+* **`Text Multiline`:** Holds your entire voiceover script. Note: Keep paragraphs back-to-back with no empty lines to prevent the iterator from wasting runs on silent, empty text strings.
+* **`StringSplitlinesList`:** Automatically parses the text block line-by-line.
+* **`ListLength` & `Batch Count` Preview:** Instantly calculates the total number of paragraphs and outputs the value to a dark visual helper on your canvas, showing you exactly how many runs to queue.
+* **`PrimitiveInt` ("Starting Point"):** A core ComfyUI node wired directly to the list iterator. You can manually change the value to resume generation from a specific paragraph index, or set it to `0` to start from the beginning.
+* **`Any List Iterator` & `Axis To Any`:** Steps through the list index-by-index with each queue run.
 
-`Qwen3-TTS (1.7B-Base)` ➔ `MossFormer2_SR_48K` ➔ `Resemble_Enhance` ➔ `SaveAudio`
+#### 2. The Factory Subgraph
+To keep the main canvas clean and modular, the generation and upscaling processors are packaged inside a single **New Subgraph ("Factory")** node:
+* **`Qwen3TTSVoiceClone`:** Clips are generated using a local `1.7B-Base` model.
+* **`FL_ClearVoice_Process` (`MossFormer2_SR_48K`):** Dynamically reconstructs high-frequency details, upscaling the raw, lower-sample-rate cloned speech to stable, broadcast-standard 48kHz audio.
 
-* **Why it works:** Feeding a raw, lower-sample-rate AI voice directly into a neural vocoder like *Resemble_Enhance* can cause the AI to "guess" too much, leading to robotic artifacts or pronunciation drifts. 
-* By running **`MossFormer2_SR_48K` first**, the voice is cleanly upscaled to 48kHz, naturally reconstructing the high-frequency spectrum. Passing this clean, high-resolution upscaled audio into **`Resemble_Enhance`** allows the neural vocoder to focus entirely on vocal smoothing, warm compression, and professional studio mastering.
+---
+
+### Step-by-Step Looping Instructions
+
+To process long scripts without manual copy-pasting, follow these steps:
+
+1. **Paste your text:** Paste your full script into the **Text Multiline** node.
+2. **First Run (Bypass):** 
+   * Right-click the **Factory** node and select **Bypass** (or press `Ctrl + B`).
+   * Click **Run** on ComfyUI once. This evaluates your text size and updates the visual **Batch Count** preview box on your canvas.
+3. **Configure your Loop:**
+   * Un-bypass the **Factory** node (press `Ctrl + B` again).
+   * Reset your **Starting Point** value to `0` in your primitive node.
+   * Look at the **Batch Count** preview box. Type that exact number into ComfyUI's native **Batch Count** input box (the input box right next to the blue **`Run`** button on your top-right menu panel).
+4. **RUN:** Click **`Run`** (or Queue Prompt). ComfyUI will run exactly the designated amount of times, generating and saving your sequential voiceover files (e.g., `ComfyUI_00001.flac`, `ComfyUI_00002.flac`) to your `output` directory without overwriting.
 
 ---
 
