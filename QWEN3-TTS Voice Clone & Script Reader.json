@@ -1,0 +1,877 @@
+{
+  "id": "feb964b1-8f9d-489a-b403-93dcc43c3132",
+  "revision": 0,
+  "last_node_id": 96,
+  "last_link_id": 115,
+  "nodes": [
+    {
+      "id": 79,
+      "type": "Any List Iterator",
+      "pos": [
+        -1585.489660838397,
+        1717.353401457722
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "list",
+          "type": "LIST",
+          "link": 102
+        },
+        {
+          "name": "counter",
+          "type": "INT",
+          "widget": {
+            "name": "counter"
+          },
+          "link": 104
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AXIS_VALUE",
+          "type": "AXIS_VALUE",
+          "links": [
+            105
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qq-nodes-comfyui",
+        "ver": "1.0.2",
+        "Node name for S&R": "Any List Iterator"
+      },
+      "widgets_values": [
+        0
+      ]
+    },
+    {
+      "id": 87,
+      "type": "Axis To Any",
+      "pos": [
+        -1308.5866497445963,
+        1718.9125691351849
+      ],
+      "size": [
+        140,
+        26
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "axis",
+          "type": "AXIS_VALUE",
+          "link": 105
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "*",
+          "links": [
+            106
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qq-nodes-comfyui",
+        "ver": "1.0.2",
+        "Node name for S&R": "Axis To Any"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 66,
+      "type": "LoadAudio",
+      "pos": [
+        -2152.9785032107898,
+        1493.4725299803922
+      ],
+      "size": [
+        282.798828125,
+        136
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            84
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1",
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        "English_final.wav",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 52,
+      "type": "Basic data handling: StringSplitlinesList",
+      "pos": [
+        -1862.7202947805258,
+        1644.409688960055
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "widget": {
+            "name": "string"
+          },
+          "link": 64
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LIST",
+          "type": "LIST",
+          "links": [
+            102,
+            113
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "basic_data_handling",
+        "ver": "1.5.1",
+        "Node name for S&R": "Basic data handling: StringSplitlinesList"
+      },
+      "widgets_values": [
+        "",
+        false
+      ]
+    },
+    {
+      "id": 93,
+      "type": "Basic data handling: ListLength",
+      "pos": [
+        -1584.6128986114065,
+        1645.512330672484
+      ],
+      "size": [
+        140,
+        26
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "list",
+          "type": "LIST",
+          "link": 113
+        }
+      ],
+      "outputs": [
+        {
+          "name": "length",
+          "type": "INT",
+          "links": [
+            114
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "basic_data_handling",
+        "ver": "1.5.1",
+        "Node name for S&R": "Basic data handling: ListLength"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 94,
+      "type": "PreviewAny",
+      "pos": [
+        -1434.5615931913349,
+        1557.6388057523347
+      ],
+      "size": [
+        210,
+        112
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 114
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "Batch Count",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1",
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [
+        null,
+        null,
+        true
+      ],
+      "color": "#2a363b",
+      "bgcolor": "#3f5159"
+    },
+    {
+      "id": 46,
+      "type": "Text Multiline",
+      "pos": [
+        -2307.8322459468695,
+        1666.8184299986667
+      ],
+      "size": [
+        438.1038400529669,
+        505.4969615126747
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            64
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "was-ns",
+        "ver": "3.0.1",
+        "Node name for S&R": "Text Multiline"
+      },
+      "widgets_values": [
+        "we spent our entire adolescence being groomed for an assembly line that doesn't exist anymore //\nit was all so meticulously planned by adults who didn't even know how to survive themselves. the two thousands were just one long con designed to trap us in a system that broke before we could even graduate. look at the two-thousand-and-eight hangover. it left behind a generation of debt and broken promises that still hasn't healed.\nschools turned into these weird resume factories where you pay tuition just to sit in a chair and wait for permission to work //\ngo to a good school. move to the capital city. eat instant noodles in a room the size of a closet for three years because \"you're building character.\" we treated major cities like corporate churches where you had to pay your tithes in astronomical rent just to get a seat at the table.\nthey promised that if you followed every rule and took all the right internships eventually—somehow—the line goes up. but looking back now it was never about climbing anywhere.\nit was just about keeping us busy while they stripped out the middle class one job posting at a time.\npeople are just bailing out of major cities now // it isn't some travel aesthetic on a screen anymore.\nit is pure survival logic that has no room to hide in plain sight. you pull down twenty-six thousand pounds or dollars and you're actively choosing between buying food and keeping the heat on — rent tracking doesn't care about your degree anyway.\nwe used to think you had to suffer in a capital city like London or Paris to make something of yourself but now everyone sees through that lie and they pack their bags instead. staying put is literally paying a premium to starve while watching your friends leave for places where money actually means anything.\nwhen rent eats up half your pay check before tax even comes out you aren't \"living the dream\" — you're just subsidizing property owners who don't care if you eat or not.\nand nobody wants to leave the jobs they hate anyway since there isn't any other option open right now. I keep seeing posts from people with chronic conditions completely frozen in place just trying to navigate a system that punishes unemployment at every turn. it is brutal //\nyou have this brilliant idea for a business or something that finally gets you out of the daily grind? great but if stepping off means jumping on six month public waiting lists while your body actively declines — or paying thousands out of pocket for private specialists just to bypass them — then nobody leaves.\nthe system keeps people stuck in cubicles since they are terrified of what happens when a single illness forces you into voluntary contribution schemes that drain whatever savings you have left. it basically kills any chance of real innovation now // our brightest minds have to stay employed just to dodge a paperwork labyrinth that grinds you down before a doctor even sees you.\nwe are literally pricing entrepreneurship out of reach for the exact people who need relief from the grind most. you can't risk your health on a hunch when one bad month means choosing between rent and treatment...\nthen you try applying for those junior roles and realize half of them simply do not exist anymore //\nnew grad recruitment in tech tanked by like sixty percent since twenty-twenty-two or so just watching it happen on my feed was depressing. companies are using software to handle the grunt work now instead of hiring fresh graduates like we used to five years ago.\nyou cannot get promoted if you aren't hired and they won't hire you at all anymore since an algorithm can write emails better than you anyway...\nthe bottom rungs have been sawed off so there is nowhere left to stand unless your parents pay for everything.\nwe were raised on this obsession with climbing higher // chasing corner offices and fancy titles like they actually mean anything anymore. but in twenty-twenty-six that kind of ambition just makes you a massive liability if things go sideways fast.\na big title doesn't matter when the company decides to automate your entire department overnight. they want you aiming for middle management while quietly mapping out which layers can be cut without stopping the profit machine.\nfreedom isn't some spiritual journey anyway // it is just basic math on a napkin. if your monthly costs stay painfully low nobody can force you into a room where they treat you like spare parts. staying cheap means you never have to sit through another meeting about quarterly targets when actual rent could easily cover half a year in cash savings instead.\nit is messy and quiet, and nobody hands out plaques for knowing which local shops still take physical money when the networks go down //\nkeep some dirt under your nails — learn how to fix a leaking pipe, grow potatoes on a fire escape, or actually know the people who live downstairs instead of hiding behind screens. build a few backup plans so if one door slams shut you aren't left picking at deadbolts in a dark hallway...\nI am just done pretending the track was ever going to reach a destination anyway // turning off the monitor now before it gets too late out there."
+      ]
+    },
+    {
+      "id": 86,
+      "type": "PrimitiveInt",
+      "pos": [
+        -1862.379607773666,
+        1764.1932796234464
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            104
+          ]
+        }
+      ],
+      "title": "Starting Point",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1",
+        "Node name for S&R": "PrimitiveInt"
+      },
+      "widgets_values": [
+        24,
+        "increment"
+      ],
+      "color": "#2a363b",
+      "bgcolor": "#3f5159"
+    },
+    {
+      "id": 65,
+      "type": "3af1ef17-0e00-45bc-9f3b-2ae281432e71",
+      "pos": [
+        -1161.8767217760394,
+        1649.4403635496137
+      ],
+      "size": [
+        269.29548727752876,
+        401.21964926965893
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "String_Text",
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 106
+        },
+        {
+          "name": "ref_audio",
+          "type": "AUDIO",
+          "link": 84
+        }
+      ],
+      "outputs": [
+        {
+          "label": "Upscaled_Audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            79
+          ]
+        }
+      ],
+      "title": "Factory",
+      "properties": {
+        "proxyWidgets": [
+          [
+            "10",
+            "text"
+          ],
+          [
+            "10",
+            "ref_text"
+          ],
+          [
+            "10",
+            "seed"
+          ]
+        ],
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1"
+      },
+      "widgets_values": [],
+      "color": "#2a363b",
+      "bgcolor": "#3f5159"
+    },
+    {
+      "id": 95,
+      "type": "Note",
+      "pos": [
+        -1587.0564404808445,
+        1811.4852130350198
+      ],
+      "size": [
+        271.0885467359292,
+        98.33806175531117
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "Bypass Factory Node!\nRUN.\nUn-Bypass Factory Node!\nReset your Starting Point value to 0.\nSet your Batch Count.\nRUN."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 24,
+      "type": "SaveAudio",
+      "pos": [
+        -1127.5699170528012,
+        2086.8320174969704
+      ],
+      "size": [
+        210,
+        112
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 79
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.1",
+        "Node name for S&R": "SaveAudio"
+      },
+      "widgets_values": [
+        "audio/ComfyUI"
+      ]
+    }
+  ],
+  "links": [
+    [
+      64,
+      46,
+      0,
+      52,
+      0,
+      "STRING"
+    ],
+    [
+      79,
+      65,
+      0,
+      24,
+      0,
+      "AUDIO"
+    ],
+    [
+      84,
+      66,
+      0,
+      65,
+      1,
+      "AUDIO"
+    ],
+    [
+      102,
+      52,
+      0,
+      79,
+      0,
+      "LIST"
+    ],
+    [
+      104,
+      86,
+      0,
+      79,
+      1,
+      "INT"
+    ],
+    [
+      105,
+      79,
+      0,
+      87,
+      0,
+      "AXIS_VALUE"
+    ],
+    [
+      106,
+      87,
+      0,
+      65,
+      0,
+      "STRING"
+    ],
+    [
+      113,
+      52,
+      0,
+      93,
+      0,
+      "LIST"
+    ],
+    [
+      114,
+      93,
+      0,
+      94,
+      0,
+      "INT"
+    ]
+  ],
+  "groups": [],
+  "definitions": {
+    "subgraphs": [
+      {
+        "id": "3af1ef17-0e00-45bc-9f3b-2ae281432e71",
+        "version": 1,
+        "state": {
+          "lastGroupId": 0,
+          "lastNodeId": 96,
+          "lastLinkId": 115,
+          "lastRerouteId": 0
+        },
+        "revision": 0,
+        "config": {},
+        "name": "New Subgraph",
+        "inputNode": {
+          "id": -10,
+          "bounding": [
+            -892.9324597550835,
+            2556.5159409154994,
+            128,
+            108
+          ]
+        },
+        "outputNode": {
+          "id": -20,
+          "bounding": [
+            604.3704183182772,
+            2536.5159409154994,
+            139.869140625,
+            68
+          ]
+        },
+        "inputs": [
+          {
+            "id": "73429e30-d364-41a6-8984-906795123b9c",
+            "name": "text",
+            "type": "STRING",
+            "linkIds": [
+              81
+            ],
+            "label": "String_Text",
+            "pos": [
+              -788.9324597550835,
+              2580.5159409154994
+            ]
+          },
+          {
+            "id": "19909083-c455-4922-a830-c0b320f3eaf3",
+            "name": "ref_audio",
+            "type": "AUDIO",
+            "linkIds": [
+              83
+            ],
+            "pos": [
+              -788.9324597550835,
+              2600.5159409154994
+            ]
+          },
+          {
+            "id": "595df86a-9b23-4aff-a2cd-7e43be1b8e7b",
+            "name": "ref_text",
+            "type": "STRING",
+            "linkIds": [
+              85
+            ],
+            "pos": [
+              -788.9324597550835,
+              2620.5159409154994
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "id": "30f42aed-d461-44a1-8db9-2e5ace8fc2bb",
+            "name": "audio",
+            "type": "AUDIO",
+            "linkIds": [
+              21
+            ],
+            "localized_name": "audio",
+            "label": "Upscaled_Audio",
+            "pos": [
+              628.3704183182772,
+              2560.5159409154994
+            ]
+          }
+        ],
+        "widgets": [],
+        "nodes": [
+          {
+            "id": 8,
+            "type": "Qwen3TTSModelLoader",
+            "pos": [
+              -704.9324597550835,
+              2237.9233932459606
+            ],
+            "size": [
+              431.921924949575,
+              154
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "localized_name": "QWEN_TTS_MODEL",
+                "name": "QWEN_TTS_MODEL",
+                "type": "QWEN_TTS_MODEL",
+                "links": [
+                  9
+                ]
+              }
+            ],
+            "properties": {
+              "cnr_id": "qwen3_tts",
+              "ver": "1.0.9",
+              "Node name for S&R": "Qwen3TTSModelLoader"
+            },
+            "widgets_values": [
+              "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+              "cuda:0",
+              "bfloat16",
+              true,
+              false
+            ]
+          },
+          {
+            "id": 22,
+            "type": "FL_ClearVoice_ModelLoader",
+            "pos": [
+              -561.1294117508634,
+              2636.364463720652
+            ],
+            "size": [
+              287.3140625,
+              82
+            ],
+            "flags": {},
+            "order": 1,
+            "mode": 4,
+            "inputs": [],
+            "outputs": [
+              {
+                "localized_name": "model",
+                "name": "model",
+                "type": "CLEARVOICE_MODEL",
+                "links": [
+                  20
+                ]
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfyui_fl-clearvoice",
+              "ver": "1.1.1",
+              "Node name for S&R": "FL_ClearVoice_ModelLoader"
+            },
+            "widgets_values": [
+              "MossFormer2_SR_48K",
+              false
+            ]
+          },
+          {
+            "id": 10,
+            "type": "Qwen3TTSVoiceClone",
+            "pos": [
+              -259.4238731738322,
+              2238.1673955075034
+            ],
+            "size": [
+              576.4476898375908,
+              714.9410930775343
+            ],
+            "flags": {},
+            "order": 2,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "model",
+                "name": "model",
+                "type": "QWEN_TTS_MODEL",
+                "link": 9
+              },
+              {
+                "localized_name": "ref_audio",
+                "name": "ref_audio",
+                "type": "AUDIO",
+                "link": 83
+              },
+              {
+                "localized_name": "text",
+                "name": "text",
+                "type": "STRING",
+                "widget": {
+                  "name": "text"
+                },
+                "link": 81
+              },
+              {
+                "localized_name": "ref_text",
+                "name": "ref_text",
+                "type": "STRING",
+                "widget": {
+                  "name": "ref_text"
+                },
+                "link": 85
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "AUDIO",
+                "name": "AUDIO",
+                "type": "AUDIO",
+                "links": [
+                  24
+                ]
+              }
+            ],
+            "properties": {
+              "cnr_id": "qwen3_tts",
+              "ver": "1.0.9",
+              "Node name for S&R": "Qwen3TTSVoiceClone"
+            },
+            "widgets_values": [
+              "then you try applying for those junior roles and realize half of them simply do not exist anymore // new grad recruitment in tech tanked by like sixty percent since twenty-twenty-two or so just watching it happen on my feed was depressing. companies are using software to handle the grunt work now instead of hiring fresh graduates like we used to five years ago. you cannot get promoted if you aren't hired and they won't hire you at all anymore since an algorithm can write emails better than you anyway...",
+              "Hello! I am testing this new digital voice. Every small detail counts when we speak. I want my voice to sound warm, clear, and completely natural. Let's see how well this works. Did you know... that there is a version of you... that already started? They uploaded their first video, just a few months ago. And, honestly... it was a complete disaster. But then... they kept going. One video, at a time. And that... is how you truly build something great.",
+              "English",
+              7,
+              "fixed",
+              false,
+              2048,
+              0.85,
+              0.85,
+              1.05
+            ]
+          },
+          {
+            "id": 23,
+            "type": "FL_ClearVoice_Process",
+            "pos": [
+              355.53240047365153,
+              2542.9583865574664
+            ],
+            "size": [
+              215.38505609351606,
+              46
+            ],
+            "flags": {
+              "collapsed": false
+            },
+            "order": 3,
+            "mode": 4,
+            "inputs": [
+              {
+                "localized_name": "model",
+                "name": "model",
+                "type": "CLEARVOICE_MODEL",
+                "link": 20
+              },
+              {
+                "localized_name": "audio",
+                "name": "audio",
+                "type": "AUDIO",
+                "link": 24
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "audio",
+                "name": "audio",
+                "type": "AUDIO",
+                "links": [
+                  21
+                ]
+              },
+              {
+                "localized_name": "message",
+                "name": "message",
+                "type": "STRING",
+                "links": []
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfyui_fl-clearvoice",
+              "ver": "1.1.1",
+              "Node name for S&R": "FL_ClearVoice_Process"
+            },
+            "widgets_values": []
+          }
+        ],
+        "groups": [],
+        "links": [
+          {
+            "id": 20,
+            "origin_id": 22,
+            "origin_slot": 0,
+            "target_id": 23,
+            "target_slot": 0,
+            "type": "CLEARVOICE_MODEL"
+          },
+          {
+            "id": 24,
+            "origin_id": 10,
+            "origin_slot": 0,
+            "target_id": 23,
+            "target_slot": 1,
+            "type": "AUDIO"
+          },
+          {
+            "id": 9,
+            "origin_id": 8,
+            "origin_slot": 0,
+            "target_id": 10,
+            "target_slot": 0,
+            "type": "QWEN_TTS_MODEL"
+          },
+          {
+            "id": 21,
+            "origin_id": 23,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 0,
+            "type": "AUDIO"
+          },
+          {
+            "id": 81,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 10,
+            "target_slot": 2,
+            "type": "STRING"
+          },
+          {
+            "id": 83,
+            "origin_id": -10,
+            "origin_slot": 1,
+            "target_id": 10,
+            "target_slot": 1,
+            "type": "AUDIO"
+          },
+          {
+            "id": 85,
+            "origin_id": -10,
+            "origin_slot": 2,
+            "target_id": 10,
+            "target_slot": 3,
+            "type": "STRING"
+          }
+        ],
+        "extra": {}
+      }
+    ]
+  },
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.064029240718051,
+      "offset": [
+        2492.9224789924237,
+        -1378.7618678603487
+      ]
+    },
+    "frontendVersion": "1.44.19"
+  },
+  "version": 0.4
+}
