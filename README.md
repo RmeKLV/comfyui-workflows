@@ -149,6 +149,8 @@ Instead of running parallel test configurations or manually pasting individual t
 * [qq-nodes-comfyui](https://github.com/nkreipke/qq-nodes-comfyui) — for Any List Iterator & Axis To Any nodes
 * [was-node-suite-comfyui](https://github.com/WASasquatch/was-node-suite-comfyui) — for Text Multiline node
 
+*(Note: The `RegexReplace` node used in this workflow is a built-in ComfyUI core node and does not require a separate custom installation).*
+
 ---
 
 ### Setup & Requirements (Windows / AMD Optimized):
@@ -181,17 +183,18 @@ Because deep-learning audio libraries often have complex dependencies, follow th
 
 ---
 
-### Workflow Breakdown & Looping Architecture
+### The Advanced Serial Audio Chain
 
 The script reading and vocal enhancement pipeline has been optimized into a clean, automated loop:
-[Text Multiline] ➔ [StringSplitlinesList] ➔ [Any List Iterator] ➔ [Factory Subgraph] ➔ [SaveAudio]
+[Text Multiline] ➔ [RegexReplace] ➔ [StringSplitlinesList] ➔ [Any List Iterator] ➔ [Factory Subgraph] ➔ [SaveAudio]
 ▲
 [Starting Point]
 code
 Code
 #### 1. The Automated Script Reader
-* **`Text Multiline`:** Holds your entire voiceover script. Note: Keep paragraphs back-to-back with no empty lines to prevent the iterator from wasting runs on silent, empty text strings.
-* **`StringSplitlinesList`:** Automatically parses the text block line-by-line.
+* **`Text Multiline`:** Holds your entire voiceover script. 
+* **`RegexReplace`:** Automatically sanitizes the text block by finding any instance of double newlines or carriage returns (`\n\n+`) pasted from Microsoft Word or other rich-text editors and replacing them with a single line break (`\n`) on-canvas. This prevents the iterator from running empty or silent text loops.
+* **`StringSplitlinesList`:** Automatically parses the sanitized text block line-by-line.
 * **`ListLength` & `Batch Count` Preview:** Instantly calculates the total number of paragraphs and outputs the value to a dark visual helper on your canvas, showing you exactly how many runs to queue.
 * **`PrimitiveInt` ("Starting Point"):** A core ComfyUI node wired directly to the list iterator. You can manually change the value to resume generation from a specific paragraph index, or set it to `0` to start from the beginning.
 * **`Any List Iterator` & `Axis To Any`:** Steps through the list index-by-index with each queue run.
@@ -210,7 +213,7 @@ To process long scripts without manual copy-pasting, follow these steps:
 1. **Paste your text:** Paste your full script into the **Text Multiline** node.
 2. **First Run (Bypass):** 
    * Right-click the **Factory** node and select **Bypass** (or press `Ctrl + B`).
-   * Click **Run** on ComfyUI once. This evaluates your text size and updates the visual **Batch Count** preview box on your canvas.
+   * Click **Run** on ComfyUI once. This evaluates your text size, sanitizes the spacing, and updates the visual **Batch Count** preview box on your canvas.
 3. **Configure your Loop:**
    * Un-bypass the **Factory** node (press `Ctrl + B` again).
    * Reset your **Starting Point** value to `0` in your primitive node.
