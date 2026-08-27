@@ -1,7 +1,106 @@
 # ComfyUI Workflows
 
-A collection of ComfyUI workflows for AI-generated room/space transformation and video generation.
+Working ComfyUI graphs I actually use — image, video, audio restoration and text-to-speech.
 
+Everything here runs on an **AMD RX 7900 XTX (gfx1100) under ROCm on Windows**, which is worth
+stating up front: no CUDA, no flash attention, and a stripped `torch.distributed` that breaks any
+node importing it. Settings are tuned for that reality — on NVIDIA you can generally afford to be
+more generous with everything.
+
+Most workflows carry a **Note node** explaining the knobs worth touching and why. Read it before
+changing things; several defaults are the way they are for a non-obvious reason.
+
+## Contents
+
+| | |
+|---|---|
+| **Video** | [Wan 2.2 A14B I2V](#wan-22-a14b-image-to-video) · [Wan 2.2 5B I2V](#wan-22-5b-image-to-video) · [Room Transformation (FLF2V)](#room-transformation-pipeline) |
+| **Image** | [Chroma realism](#chroma-realism) · [Cover art (FLUX)](#cover-art--flux--facedetailer) · [Anime](#anime--wai-illustrious--noobai-v-pred) |
+| **Audio** | [SUNO voice upscale](#suno-audio-restoration) · [SUNO instrument batch](#suno-audio-restoration) |
+| **Speech** | [Kokoro TTS](#kokoro-tts--fl-clearvoice-audio-pipeline) · [Qwen3-TTS voice clone](#qwen3-tts-voice-clone--script-reader-automated-loop-pipeline) |
+
+---
+
+## Video generation
+
+### Wan 2.2 A14B image-to-video
+
+`Wan22_A14B_I2V.json` — dual-expert (high-noise + low-noise) with staged advanced sampling,
+GGUF-quantised to Q6_K, Lightning step-reduction LoRAs, and RIFE frame interpolation.
+
+Two things in here were learned the hard way:
+
+- Lightning LoRAs are **CFG-distilled and only valid at cfg 1.0**. Raising cfg while Lightning is
+  still active fights the distillation and degrades the output — for the quality preset you must
+  bypass *both* Lightning LoRAs **and** raise steps and cfg together.
+- The `UNLOAD UNET BEFORE DECODE` node is not optional. On 24 GB it saves roughly **95 s on its
+  own**, purely by keeping the VAE decode out of VRAM contention with the still-resident UNet.
+
+Optional anime helper LoRAs are wired to the **low-noise expert only**, deliberately.
+
+Measured on this box: ~246 s with a SageAttention build, ~346 s without.
+
+### Wan 2.2 5B image-to-video
+
+`Wan22_5B_I2V.json` — the 5B TI2V model. Much faster, no dual-expert staging. What I reach for
+while iterating on a shot before committing to an A14B run.
+
+---
+
+## Image generation
+
+### Chroma realism
+
+`Chroma_Realism_T2I_Refined.json` — photorealism, tuned against a skin-texture / plastic-skin
+negative prompt.
+
+Benchmarked at fixed seed, quality plateaus around **16 steps, not 30**: 8 is soft, 12 is usable,
+and 16 through 30 are visually identical. That makes 16 steps roughly **1.9× faster for no visible
+loss**. Worth re-measuring on your own hardware rather than trusting any step count from a README —
+including this one.
+
+### Cover art — FLUX + FaceDetailer
+
+`Cover Art (FLUX + FaceDetailer).json` — FLUX with a FaceDetailer pass, built for album and cover
+art where a face rendered small needs the second pass to hold up.
+
+### Anime — WAI Illustrious / NoobAI v-pred
+
+`WAI_Illustrious_BEST.json` and `NoobAI_VPred_Anime.json`.
+
+The NoobAI graph is **v-prediction**: `v_prediction + zsnr + RescaleCFG 0.7` are mandatory, not
+preferences. It produces garbage without them.
+
+---
+
+## SUNO audio restoration
+
+`SUNO AI Voice Upscale.json` — vocal restoration for generated stems: ClearVoice separation,
+envelope-gated high-frequency blending, artefact repair.
+
+`SUNO Instrument Batch Auto.json` — batch instrument-stem restoration. Reads the stem type from the
+filename and adapts crossover, gain and gating per instrument, passing bass and dark pads through
+untouched rather than inventing treble that was never there.
+
+Both require my custom nodes: **[comfyui-audio-nodes](https://github.com/RmeKLV/comfyui-audio-nodes)**.
+`SUNO Instrument Batch Auto` additionally uses [ComfyUI-AudioSR](https://github.com/kijai/ComfyUI-AudioSR).
+
+---
+
+## Custom nodes used
+
+| Workflow group | Needs |
+|---|---|
+| SUNO audio | [comfyui-audio-nodes](https://github.com/RmeKLV/comfyui-audio-nodes) (mine), ComfyUI-AudioSR, FL ClearVoice |
+| Wan video | ComfyUI-GGUF, KJNodes (`VRAM_Debug`), RIFE interpolation |
+| Cover art | Impact Pack (FaceDetailer) |
+| TTS | Qwen3_TTS, ComfyUI-Geeky-Kokoro-TTS |
+
+Model files are not included — workflows reference them by name, so fetch them from their
+respective sources. Model licences vary and are **not** all permissive; check before using output
+commercially.
+
+---
 ---
 
 ## Room Transformation Pipeline
