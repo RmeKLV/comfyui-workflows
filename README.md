@@ -15,7 +15,7 @@ changing things; several defaults are the way they are for a non-obvious reason.
 | | |
 |---|---|
 | **Video** | [Wan 2.2 A14B I2V](#wan-22-a14b-image-to-video) · [Wan 2.2 5B I2V](#wan-22-5b-image-to-video) · [Room Transformation (FLF2V)](#room-transformation-pipeline) |
-| **Image** | [Chroma realism](#chroma-realism) · [Cover art (FLUX)](#cover-art--flux--facedetailer) · [Anime](#anime--wai-illustrious--noobai-v-pred) |
+| **Image** | [Chroma realism](#chroma-realism) · [Cover art (FLUX)](#cover-art--flux--facedetailer) · [Anime](#anime--wai-illustrious--noobai-v-pred) · [Matching PFP pairs](#matching-pfp-pairs) |
 | **Audio** | [SUNO voice upscale](#suno-audio-restoration) · [SUNO instrument batch](#suno-audio-restoration) |
 | **Speech** | [Kokoro TTS](#kokoro-tts--fl-clearvoice-audio-pipeline) · [Qwen3-TTS voice clone](#qwen3-tts-voice-clone--script-reader-automated-loop-pipeline) |
 
@@ -70,6 +70,64 @@ art where a face rendered small needs the second pass to hold up.
 
 The NoobAI graph is **v-prediction**: `v_prediction + zsnr + RescaleCFG 0.7` are mandatory, not
 preferences. It produces garbage without them.
+
+Prompts, poses, artist tags and the accumulated failure modes live in
+**[`anime-prompt-library.md`](anime-prompt-library.md)**. Three things from it are worth
+repeating here, because they are the difference between output that reads as hand-drawn and
+output that reads as AI:
+
+- **Trim the quality stack.** `masterpiece, best quality, amazing quality, very aesthetic,
+  absurdres` plus `detailed background, cinematic lighting, depth of field` *is* the airbrushed
+  AI look. `best quality, newest, very awa, rating:general` is enough.
+- **Always use an artist tag** — the single biggest lever. Without one you get the averaged
+  sameface. Two at a time; three turn to mud.
+- **cfg 6 -> 5**, then `flat color, cel shading, thick lineart`. And keep the hand detailer pass
+  (`bbox/hand_yolov8s.pt`) — drop it and any visible hand comes out mangled.
+
+Steps are the classic trap: 20, 24 and 30 are **visually identical** on SDXL, and more steps did
+not fix hands (one checkpoint grew a hand artifact at 30 that was absent at 16).
+
+### Matching PFP pairs
+
+[`scripts/matching_pfp.py`](scripts/matching_pfp.py) renders a 2048x1024 two-shot per pose and
+[`scripts/split_pfp.py`](scripts/split_pfp.py) cuts it into two 1024x1024 avatars. Both drive
+ComfyUI over its HTTP API, so no UI interaction is involved.
+
+Chain: 1024x512 base -> `4x-AnimeSharp` -> lanczos to 2048x1024 -> `VAEEncode` -> second sampler
+at **denoise 0.35** -> face detailer -> hand detailer. ~75-110 s per candidate on this box.
+
+![wide two-shot](examples/matching_pair_wide.png)
+
+One render, split into two independent avatars:
+
+<p>
+  <img src="examples/matching_pair_left.png" width="240" alt="left avatar">
+  <img src="examples/matching_pair_right.png" width="240" alt="right avatar">
+</p>
+
+The parts that took the longest to learn:
+
+- **Crop face-centred, never 50/50.** Run a face detector over the wide image, sort the boxes by
+  x, and take a full-height square window centred on each face. A blind half-cut pushes each face
+  toward the *outer* edge of a circular avatar mask — measured across seven renders, centring
+  fixed every one.
+- **The pose decides whether a pair can be split at all.** Poses with a real gap between the two
+  characters (paw pose, a `v` sign beside each face) split cleanly into two independent avatars.
+  Cheek-to-cheek and hug poses put both faces in both crops — those are still good images, just
+  use them as one shared picture rather than a split pair.
+- **Character side assignment is a coin flip and cannot be prompted.** Measured at n=11 per arm:
+  55% either way, and writing the outfit inside a character's own attribute block only binds it
+  64% of the time. Give both characters the *same* outfit so a swap is invisible, and read the
+  layout off the render rather than trusting the prompt.
+- **Regional area conditioning made it worse**, not better: a base prompt plus two
+  `ConditioningSetAreaPercentage` regions rendered *three* characters at every seed.
+- **Never write `peace sign`** (it gives a three-fingered hand) — use the danbooru tags `v` /
+  `double v`. And never `arms extended toward each other`, which reads as toward the *camera* and
+  produces a giant foreshortened hand.
+- **Automated QC is triage, not a verdict.** A YOLO gate on face count, oversized hands and
+  clipped heads caught about half the failures — while missing light-coloured panel borders, a
+  hallucinated drawing-app toolbar down both edges of the frame, wrong hair colour and garment
+  colour bleed, and falsely rejecting clean frames. Sheet the rejects and look before deleting.
 
 ---
 
